@@ -2,7 +2,7 @@ package com.instacart.formula.internal
 
 import com.instacart.formula.Effects
 
-interface TransitionListener {
+internal interface TransitionListener {
     companion object {
         inline operator fun invoke(crossinline listener: (Effects?, isValid: Boolean) -> Unit): TransitionListener {
             return object : TransitionListener {

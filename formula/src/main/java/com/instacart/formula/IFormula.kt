@@ -20,7 +20,7 @@ interface IFormula<Input, Output> {
      * to define the contract and hide the implementation details. We also override this
      * method to provide a fake implementation when writing tests.
      */
-    fun implementation(): Formula<Input, *, Output>
+    fun implementation(): FormulaDelegate<Input, Output, *, *>
 
     /**
      * Type is used in conjunction with [Formula.key] to uniquely identify a formula
