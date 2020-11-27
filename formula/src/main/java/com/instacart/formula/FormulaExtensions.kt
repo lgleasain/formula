@@ -36,6 +36,6 @@ internal class InputFormula<Input : Any, NewInput, Output>(
     override fun key(input: NewInput): Any? {
         // TODO: this is ugly since we have to initialize input twice.
         val generated = mapInput(input)
-        return formula.implementation().key(generated)
+        return formula.key(generated)
     }
 }

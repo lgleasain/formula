@@ -29,10 +29,8 @@ class TerminateFormula : StatelessFormula<Unit, Unit>() {
     ) : IFormula<Input, Output> {
         override fun type(): KClass<*> = type
 
-        override fun implementation(): Formula<Input, *, Output> {
-            return object : Formula<Input, State, Output> by implementation {
-                override fun key(input: Input): Any = key
-            }
-        }
+        override fun implementation(): Formula<Input, *, Output> = implementation
+
+        override fun key(input: Input): Any = key
     }
 }
