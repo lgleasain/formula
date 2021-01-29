@@ -4,7 +4,7 @@ import com.examples.todoapp.data.TaskRepo
 import com.examples.todoapp.tasks.TaskListFormula
 
 class TodoAppComponent {
-    val repo: TaskRepo = TaskRepo()
+    private val repo: TaskRepo = TaskRepo()
 
     fun createTaskListFormula(): TaskListFormula {
         return TaskListFormula(repo)

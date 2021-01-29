@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.PopupMenu
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.DiffUtil
@@ -21,6 +22,7 @@ class TaskListRenderView(private val root: View) : RenderView<TaskListRenderMode
     private val filterMenuItem: MenuItem
 
     private val recyclerView: RecyclerView = root.findViewById(R.id.task_list_recycler)
+    private val progressBar: ProgressBar = root.findViewById(R.id.progress_bar)
     private val adapter: TaskListAdapter
 
     init {
@@ -34,6 +36,9 @@ class TaskListRenderView(private val root: View) : RenderView<TaskListRenderMode
     }
 
     override val render: Renderer<TaskListRenderModel> = Renderer { model ->
+        recyclerView.visibility = if (model.isLoading) View.GONE else View.VISIBLE
+        progressBar.visibility = if (model.isLoading) View.VISIBLE else View.GONE
+
         val diff = DiffUtil.calculateDiff(TaskDiffCallback(adapter.items, model.items))
         adapter.items = model.items
         diff.dispatchUpdatesTo(adapter)

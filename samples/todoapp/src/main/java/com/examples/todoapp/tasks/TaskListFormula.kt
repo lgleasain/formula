@@ -14,7 +14,7 @@ class TaskListFormula(private val repo: TaskRepo) : Formula<TaskListFormula.Inpu
     )
 
     override fun initialState(input: Input): TaskListState {
-        return TaskListState(taskState = emptyList(), filterType = TasksFilterType.ALL_TASKS)
+        return TaskListState(taskState = emptyList(), filterType = TasksFilterType.ALL_TASKS, isLoading = true)
     }
 
     override fun evaluate(
@@ -49,11 +49,12 @@ class TaskListFormula(private val repo: TaskRepo) : Formula<TaskListFormula.Inpu
         return Evaluation(
             updates = context.updates {
                 RxStream.fromObservable(repo::tasks).onEvent {
-                    transition(state.copy(taskState = it))
+                    transition(state.copy(taskState = it, isLoading = false))
                 }
             },
             output = TaskListRenderModel(
                 items = items,
+                isLoading = state.isLoading,
                 filterOptions = filterOptions(state, context)
             )
         )
