@@ -6,6 +6,7 @@ import com.instacart.formula.activity.ActivityResult
 import com.instacart.formula.fragment.FragmentContract
 import com.instacart.formula.fragment.FragmentFlowState
 import com.instacart.formula.fragment.FragmentKey
+import com.instacart.formula.integration.ActiveFragment
 import com.instacart.formula.integration.ActivityStoreContext
 import com.jakewharton.rxrelay3.BehaviorRelay
 import com.jakewharton.rxrelay3.PublishRelay
@@ -97,7 +98,8 @@ internal class ActivityStoreContextImpl<Activity : FragmentActivity> : ActivityS
         attachEventRelay.accept(false)
     }
 
-    fun updateFragmentLifecycleState(contract: FragmentKey, newState: Lifecycle.State) {
+    fun updateFragmentLifecycleState(key: ActiveFragment, newState: Lifecycle.State) {
+        val contract = key.key
         if (newState == Lifecycle.State.DESTROYED) {
             fragmentLifecycleStates.remove(contract.tag)
         } else {
