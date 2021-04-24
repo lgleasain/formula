@@ -4,34 +4,6 @@ import org.junit.Test
 
 class BackStackStoreTest {
 
-    @Test fun lifecycleEvent_attach() {
-        val machine = BackStackStore<String>()
-        machine
-            .stateChanges()
-            .test()
-            .apply {
-                machine.onLifecycleEffect(LifecycleEvent.Added("my-key"))
-            }
-            .assertValues(
-                BackStack.empty(),
-                BackStack(listOf("my-key"))
-            )
-    }
-
-    @Test fun lifecycleEvent_detach() {
-        val machine = BackStackStore(listOf("my-key"))
-        machine
-            .stateChanges()
-            .test()
-            .apply {
-                machine.onLifecycleEffect(LifecycleEvent.Removed("my-key"))
-            }
-            .assertValues(
-                BackStack(listOf("my-key")),
-                BackStack.empty()
-            )
-    }
-
     @Test fun navigateTo_multipleEvents() {
         val machine = BackStackStore<String>()
         machine

@@ -44,12 +44,6 @@ class BackStackStore<Key>(initial: List<Key>) {
         }
     }
 
-    fun onLifecycleEffect(lifecycleEvent: LifecycleEvent<Key>) {
-        updateState {
-            it.update(lifecycleEvent)
-        }
-    }
-
     private inline fun updateState(modify: (BackStack<Key>) -> BackStack<Key>) {
         backStackStateRelay.onNext(modify(backStackStateRelay.value!!))
     }
